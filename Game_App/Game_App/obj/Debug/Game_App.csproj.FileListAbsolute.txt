@@ -4,3 +4,4 @@ c:\users\srinivas.kv\source\repos\Game_App\Game_App\bin\Debug\Game_App.pdb
 c:\users\srinivas.kv\source\repos\Game_App\Game_App\obj\Debug\Game_App.csproj.CoreCompileInputs.cache
 c:\users\srinivas.kv\source\repos\Game_App\Game_App\obj\Debug\Game_App.exe
 c:\users\srinivas.kv\source\repos\Game_App\Game_App\obj\Debug\Game_App.pdb
+c:\users\srinivas.kv\source\repos\Game_App\Game_App\obj\Debug\Game_App.csprojResolveAssemblyReference.cache

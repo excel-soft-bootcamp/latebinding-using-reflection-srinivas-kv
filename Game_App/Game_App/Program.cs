@@ -25,7 +25,7 @@ namespace Game_App
             Console.WriteLine(displayMessage);
             Options _choice = (Options)Int32.Parse(Console.ReadLine());
 
-            try{
+           
                 switch (_choice)
                 {
                     case Options.BASIC:
@@ -83,7 +83,7 @@ namespace Game_App
 
                         }
                         break;
-                    case Options.ADVANCED:
+                        case Options.ADVANCED:
                         Console.WriteLine("Advanced Level");
 
                         //Use Reflection  
@@ -112,19 +112,9 @@ namespace Game_App
                         }
                         break;
                     }
-                }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            finally
-            {
-
-            }
-            Console.ReadLine();
-
-            }
         }
+            
     }
+}
 
 
