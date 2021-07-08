@@ -4,13 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0243810C-42F2-4C2F-98E0-124170672368}</ProjectGuid>
+    <ProjectGuid>{47B29B91-4479-4454-90DC-66423C958D36}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Game_App</RootNamespace>
-    <AssemblyName>Game_App</AssemblyName>
+    <RootNamespace>GameApp</RootNamespace>
+    <AssemblyName>GameApp</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
