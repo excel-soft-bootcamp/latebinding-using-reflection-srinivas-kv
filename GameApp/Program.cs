@@ -6,95 +6,94 @@ using System.Threading.Tasks;
 
 namespace GameApp
 {
-    //Named Constants
-    //Constant Value is - int
     public enum Options
     {
-        BASIC=1,INTERMEDIATE,ADVANCED
+        BASIC = 1, INTERMEDIATE, ADVANCED
     }
     class Program
     {
         static void Main(string[] args)
         {
             Console.WriteLine("Word Guess Game");
-            
-            string message = string.Format("Enter Your Choice {0}->Basic , {1}->Intermediate ,{2}->Advanced",Options.BASIC,Options.INTERMEDIATE,Options.ADVANCED);// 1->Basic,2->Intermediate
-            //String Interpollation 
             string displayMessage = $"Enter Your Choice {(int)Options.BASIC}->Basic,{(int)Options.INTERMEDIATE}->Intermediate,{(int)Options.ADVANCED}->Advanced";
             Console.WriteLine(displayMessage);
-           
-            Options _choice =(Options)Int32.Parse( Console.ReadLine());
-            switch (_choice)
+            do
             {
-                case Options.BASIC:Console.WriteLine("Basic Level");
-                    System.Reflection.Assembly basicLevelLib = 
-                    System.Reflection.Assembly.LoadFile(@"C:\Users\srinivas.kv\source\repos\GameApp\bin\Debug\LevelLibs\BasicLevelLib.dll");
-                    
-                    System.Type basicLevelTypeClassRef= basicLevelLib.GetType("BasicLevelLib.BasicLevelType");
-                    if (basicLevelTypeClassRef != null)
+                try
+                {
+                    Options _choice = (Options)Int32.Parse(Console.ReadLine());
+                    int choose = (int)_choice;
+                    if (_choice == Options.BASIC || _choice == Options.INTERMEDIATE || _choice == Options.ADVANCED)
                     {
-                        if (basicLevelTypeClassRef.IsClass)
+                        switch (_choice)
                         {
-                            
-                           Object objRef =System.Activator.CreateInstance(basicLevelTypeClassRef); 
-                          System.Reflection.MethodInfo _methodRef=  basicLevelTypeClassRef.GetMethod("Play");
-                            if (!_methodRef.IsStatic)
-                            {
-                             
-                                object result =  _methodRef.Invoke(objRef, new object[] {});
-                                Console.WriteLine(result.ToString());
-                            }
-
+                            case Options.BASIC:
+                                Console.WriteLine("Basic Level");
+                                System.Reflection.Assembly basicLevelLib =
+                                System.Reflection.Assembly.LoadFile(@"C:\Users\srinivas.kv\source\repos\GameApp\bin\Debug\LevelLibs\BasicLevelLib.dll");
+                                System.Type basicLevelTypeClassRef = basicLevelLib.GetType("BasicLevelLib.BasicLevelType");
+                                CheckNull(basicLevelTypeClassRef, "Play");
+                                break;
+                            case Options.INTERMEDIATE:
+                                Console.WriteLine("Intermediate Level");
+                                System.Reflection.Assembly intermediateLevelLib =
+                                System.Reflection.Assembly.LoadFile(@"C:\Users\srinivas.kv\source\repos\GameApp\bin\Debug\LevelLibs\IntermediateLevelLib");
+                                System.Type intermediateLevelTypeClassRef = intermediateLevelLib.GetType("IntermediateLevelLib.IntermediateLevelType");
+                                CheckNull(intermediateLevelTypeClassRef, "Start");
+                                break;
+                            case Options.ADVANCED:
+                                Console.WriteLine("Advanced Level");
+                                System.Reflection.Assembly advancedLevelLib =
+                                System.Reflection.Assembly.LoadFile(@"C:\Users\srinivas.kv\source\repos\GameApp\bin\Debug\LevelLibs\AdvancedLevelLib.dll");
+                                System.Type advancedLevelTypeClassRef = advancedLevelLib.GetType("AdvancedLevelLib.AdvancedLevelType");
+                                CheckNull(advancedLevelTypeClassRef, "Begin");
+                                break;
                         }
-
                     }
-                    break;
-                    case Options.INTERMEDIATE:Console.WriteLine("Intermediate Level");
-                   
-                    System.Reflection.Assembly intermediateLevelLib =
-                    System.Reflection.Assembly.LoadFile(@"C:\Users\srinivas.kv\source\repos\GameApp\bin\Debug\LevelLibs\IntermediateLevelLib");
-                    
-                    System.Type intermediateLevelTypeClassRef = intermediateLevelLib.GetType("IntermediateLevelLib.IntermediateLevelType");
-                    if (intermediateLevelTypeClassRef != null)
+                    else
                     {
-                        if (intermediateLevelTypeClassRef.IsClass)
-                        {
-                            Object objRef = System.Activator.CreateInstance(intermediateLevelTypeClassRef); 
-                            System.Reflection.MethodInfo _methodRef = intermediateLevelTypeClassRef.GetMethod("Start");
-                            if (!_methodRef.IsStatic)
-                            {
-                                object result = _methodRef.Invoke(objRef, new object[] {"Srinivas"});
-                                Console.WriteLine(result.ToString());
-                            }
-
-                        }
-
+                        Console.WriteLine("Invalid input");
                     }
-                    break;
-                    case Options.ADVANCED:Console.WriteLine("Advanced Level");
-                    System.Reflection.Assembly advancedLevelLib =
-                    System.Reflection.Assembly.LoadFile(@"C:\Users\srinivas.kv\source\repos\GameApp\bin\Debug\LevelLibs\AdvancedLevelLib.dll");
-                    
-                    System.Type advancedLevelTypeClassRef = advancedLevelLib.GetType("AdvancedLevelLib.AdvancedLevelType");
-                    if (advancedLevelTypeClassRef != null)
+                }
+                catch (SystemException)
+                {
+                    Console.WriteLine("Warning : Choose a number");
+                }
+
+            } while (true);
+        }
+        public static void CheckNull(System.Type classRef, string methodPerformed)
+        {
+            if (classRef != null)
+            {
+                if (classRef.IsClass)
+                {
+                    Object _obj = System.Activator.CreateInstance(classRef);
+                    System.Reflection.MethodInfo _methodAction = classRef.GetMethod(methodPerformed);
+
+                    if (!_methodAction.IsStatic)
                     {
-                        if (advancedLevelTypeClassRef.IsClass)
+                        if (methodPerformed == "Play")
                         {
-                            Object objRef = System.Activator.CreateInstance(advancedLevelTypeClassRef); 
-                            System.Reflection.MethodInfo _methodRef = advancedLevelTypeClassRef.GetMethod("Begin");
-                            if (!_methodRef.IsStatic)
-                            {
-                                object result = _methodRef.Invoke(objRef, new object[] {"Srinivas", 100});
-                                Console.WriteLine(result.ToString());
-                            }
-
+                            object result = _methodAction.Invoke(_obj, new object[] { });
+                            Console.WriteLine(result.ToString());
                         }
-
+                        else if (methodPerformed == "Start")
+                        {
+                            object result = _methodAction.Invoke(_obj, new object[] { "Srinivas" });
+                            Console.WriteLine(result.ToString());
+                        }
+                        else if (methodPerformed == "Begin")
+                        {
+                            object result = _methodAction.Invoke(_obj, new object[] { "Srinivas", 99 });
+                            Console.WriteLine(result.ToString());
+                        }
                     }
-                    break;
-                
+
+                }
             }
 
         }
     }
+
 }
